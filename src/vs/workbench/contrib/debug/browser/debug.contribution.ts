@@ -220,15 +220,15 @@ MenuRegistry.appendMenuItem(MenuId.EditorTitle, { submenu: MenuId.EditorTitleRun
 
 // Debug menu
 
-MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
-	submenu: MenuId.MenubarDebugMenu,
-	title: {
-		value: 'Run',
-		original: 'Run',
-		mnemonicTitle: nls.localize({ key: 'mRun', comment: ['&& denotes a mnemonic'] }, "&&Run")
-	},
-	order: 6
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
+// 	submenu: MenuId.MenubarDebugMenu,
+// 	title: {
+// 		value: 'Run',
+// 		original: 'Run',
+// 		mnemonicTitle: nls.localize({ key: 'mRun', comment: ['&& denotes a mnemonic'] }, "&&Run")
+// 	},
+// 	order: 6
+// });
 
 MenuRegistry.appendMenuItem(MenuId.MenubarDebugMenu, {
 	group: '1_debug',
@@ -403,7 +403,7 @@ const viewContainer = Registry.as<IViewContainersRegistry>(ViewExtensions.ViewCo
 	icon: icons.runViewIcon,
 	alwaysUseContainerInfo: true,
 	order: 3,
-}, ViewContainerLocation.Sidebar);
+}, ViewContainerLocation.None);
 
 // Register default debug views
 const viewsRegistry = Registry.as<IViewsRegistry>(ViewExtensions.ViewsRegistry);

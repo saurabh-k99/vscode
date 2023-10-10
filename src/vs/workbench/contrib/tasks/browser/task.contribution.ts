@@ -358,15 +358,15 @@ class UserTasksGlobalActionContribution extends Disposable implements IWorkbench
 	private registerActions() {
 		const id = 'workbench.action.tasks.openUserTasks';
 		const title = nls.localize('userTasks', "User Tasks");
-		this._register(MenuRegistry.appendMenuItem(MenuId.GlobalActivity, {
-			command: {
-				id,
-				title
-			},
-			when: TaskExecutionSupportedContext,
-			group: '2_configuration',
-			order: 6
-		}));
+		// this._register(MenuRegistry.appendMenuItem(MenuId.GlobalActivity, {
+		// 	command: {
+		// 		id,
+		// 		title
+		// 	},
+		// 	when: TaskExecutionSupportedContext,
+		// 	group: '2_configuration',
+		// 	order: 6
+		// }));
 		this._register(MenuRegistry.appendMenuItem(MenuId.MenubarPreferencesMenu, {
 			command: {
 				id,
