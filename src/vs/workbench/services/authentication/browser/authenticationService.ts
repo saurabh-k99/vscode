@@ -170,7 +170,7 @@ const authenticationExtPoint = ExtensionsRegistry.registerExtensionPoint<Authent
 let placeholderMenuItem: IDisposable | undefined = MenuRegistry.appendMenuItem(MenuId.AccountsContext, {
 	command: {
 		id: 'noAuthenticationProviders',
-		title: nls.localize('authentication.Placeholder', "No accounts requested yet..."),
+		title: nls.localize('authentication.Placeholder', "Disabled..."),
 		precondition: ContextKeyExpr.false()
 	},
 });

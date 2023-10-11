@@ -115,6 +115,16 @@ MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
 // });
 
 MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
+	submenu: MenuId.DoSelectCustomMenu,
+	title: {
+		value: 'Start',
+		original: 'Start',
+		mnemonicTitle: localize({ key: 'mStart', comment: ['Custom Menu for DoSelect'] }, 'Start')
+	},
+	order: 1
+})
+
+MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
 	submenu: MenuId.MenubarPreferencesMenu,
 	title: {
 		value: 'Preferences',

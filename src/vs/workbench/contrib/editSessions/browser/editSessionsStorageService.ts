@@ -467,11 +467,12 @@ export class EditSessionsWorkbenchService extends Disposable implements IEditSes
 					menu: [{
 						id: MenuId.CommandPalette,
 					},
-					{
-						id: MenuId.AccountsContext,
-						group: '2_editSessions',
-						when,
-					}]
+						// {
+						// 	id: MenuId.AccountsContext,
+						// 	group: '2_editSessions',
+						// 	when,
+						// }
+					]
 				});
 			}
 
