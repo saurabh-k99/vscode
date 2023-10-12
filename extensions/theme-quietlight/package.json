@@ -9,14 +9,6 @@
     "vscode": "*"
   },
   "contributes": {
-    "themes": [
-      {
-        "id": "Quiet Light",
-        "label": "%themeLabel%",
-        "uiTheme": "vs",
-        "path": "./themes/quietlight-color-theme.json"
-      }
-    ]
   },
   "repository": {
     "type": "git",
