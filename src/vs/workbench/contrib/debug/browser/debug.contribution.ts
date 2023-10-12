@@ -371,7 +371,7 @@ const VIEW_CONTAINER: ViewContainer = Registry.as<IViewContainersRegistry>(ViewE
 	storageId: DEBUG_PANEL_ID,
 	hideIfEmpty: true,
 	order: 2,
-}, ViewContainerLocation.Panel, { doNotRegisterOpenCommand: true });
+}, ViewContainerLocation.None, { doNotRegisterOpenCommand: true });
 
 Registry.as<IViewsRegistry>(ViewExtensions.ViewsRegistry).registerViews([{
 	id: REPL_VIEW_ID,
@@ -381,12 +381,12 @@ Registry.as<IViewsRegistry>(ViewExtensions.ViewsRegistry).registerViews([{
 	canMoveView: true,
 	when: CONTEXT_DEBUGGERS_AVAILABLE,
 	ctorDescriptor: new SyncDescriptor(Repl),
-	openCommandActionDescriptor: {
-		id: 'workbench.debug.action.toggleRepl',
-		mnemonicTitle: nls.localize({ key: 'miToggleDebugConsole', comment: ['&& denotes a mnemonic'] }, "De&&bug Console"),
-		keybindings: { primary: KeyMod.CtrlCmd | KeyMod.Shift | KeyCode.KeyY },
-		order: 2
-	}
+	// openCommandActionDescriptor: {
+	// 	id: 'workbench.debug.action.toggleRepl',
+	// 	mnemonicTitle: nls.localize({ key: 'miToggleDebugConsole', comment: ['&& denotes a mnemonic'] }, "De&&bug Console"),
+	// 	keybindings: { primary: KeyMod.CtrlCmd | KeyMod.Shift | KeyCode.KeyY },
+	// 	order: 2
+	// }
 }], VIEW_CONTAINER);
 
 

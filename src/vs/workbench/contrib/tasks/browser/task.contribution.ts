@@ -159,80 +159,80 @@ export class TaskStatusBarContributions extends Disposable implements IWorkbench
 
 workbenchRegistry.registerWorkbenchContribution(TaskStatusBarContributions, LifecyclePhase.Restored);
 
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Run,
-	command: {
-		id: 'workbench.action.tasks.runTask',
-		title: nls.localize({ key: 'miRunTask', comment: ['&& denotes a mnemonic'] }, "&&Run Task...")
-	},
-	order: 1,
-	when: TaskExecutionSupportedContext
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Run,
+// 	command: {
+// 		id: 'workbench.action.tasks.runTask',
+// 		title: nls.localize({ key: 'miRunTask', comment: ['&& denotes a mnemonic'] }, "&&Run Task...")
+// 	},
+// 	order: 1,
+// 	when: TaskExecutionSupportedContext
+// });
 
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Run,
-	command: {
-		id: 'workbench.action.tasks.build',
-		title: nls.localize({ key: 'miBuildTask', comment: ['&& denotes a mnemonic'] }, "Run &&Build Task...")
-	},
-	order: 2,
-	when: TaskExecutionSupportedContext
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Run,
+// 	command: {
+// 		id: 'workbench.action.tasks.build',
+// 		title: nls.localize({ key: 'miBuildTask', comment: ['&& denotes a mnemonic'] }, "Run &&Build Task...")
+// 	},
+// 	order: 2,
+// 	when: TaskExecutionSupportedContext
+// });
 
-// Manage Tasks
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Manage,
-	command: {
-		precondition: TASK_RUNNING_STATE,
-		id: 'workbench.action.tasks.showTasks',
-		title: nls.localize({ key: 'miRunningTask', comment: ['&& denotes a mnemonic'] }, "Show Runnin&&g Tasks...")
-	},
-	order: 1,
-	when: TaskExecutionSupportedContext
-});
+// // Manage Tasks
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Manage,
+// 	command: {
+// 		precondition: TASK_RUNNING_STATE,
+// 		id: 'workbench.action.tasks.showTasks',
+// 		title: nls.localize({ key: 'miRunningTask', comment: ['&& denotes a mnemonic'] }, "Show Runnin&&g Tasks...")
+// 	},
+// 	order: 1,
+// 	when: TaskExecutionSupportedContext
+// });
 
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Manage,
-	command: {
-		precondition: TASK_RUNNING_STATE,
-		id: 'workbench.action.tasks.restartTask',
-		title: nls.localize({ key: 'miRestartTask', comment: ['&& denotes a mnemonic'] }, "R&&estart Running Task...")
-	},
-	order: 2,
-	when: TaskExecutionSupportedContext
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Manage,
+// 	command: {
+// 		precondition: TASK_RUNNING_STATE,
+// 		id: 'workbench.action.tasks.restartTask',
+// 		title: nls.localize({ key: 'miRestartTask', comment: ['&& denotes a mnemonic'] }, "R&&estart Running Task...")
+// 	},
+// 	order: 2,
+// 	when: TaskExecutionSupportedContext
+// });
 
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Manage,
-	command: {
-		precondition: TASK_RUNNING_STATE,
-		id: 'workbench.action.tasks.terminate',
-		title: nls.localize({ key: 'miTerminateTask', comment: ['&& denotes a mnemonic'] }, "&&Terminate Task...")
-	},
-	order: 3,
-	when: TaskExecutionSupportedContext
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Manage,
+// 	command: {
+// 		precondition: TASK_RUNNING_STATE,
+// 		id: 'workbench.action.tasks.terminate',
+// 		title: nls.localize({ key: 'miTerminateTask', comment: ['&& denotes a mnemonic'] }, "&&Terminate Task...")
+// 	},
+// 	order: 3,
+// 	when: TaskExecutionSupportedContext
+// });
 
-// Configure Tasks
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Configure,
-	command: {
-		id: 'workbench.action.tasks.configureTaskRunner',
-		title: nls.localize({ key: 'miConfigureTask', comment: ['&& denotes a mnemonic'] }, "&&Configure Tasks...")
-	},
-	order: 1,
-	when: TaskExecutionSupportedContext
-});
+// // Configure Tasks
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Configure,
+// 	command: {
+// 		id: 'workbench.action.tasks.configureTaskRunner',
+// 		title: nls.localize({ key: 'miConfigureTask', comment: ['&& denotes a mnemonic'] }, "&&Configure Tasks...")
+// 	},
+// 	order: 1,
+// 	when: TaskExecutionSupportedContext
+// });
 
-MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
-	group: TerminalMenuBarGroup.Configure,
-	command: {
-		id: 'workbench.action.tasks.configureDefaultBuildTask',
-		title: nls.localize({ key: 'miConfigureBuildTask', comment: ['&& denotes a mnemonic'] }, "Configure De&&fault Build Task...")
-	},
-	order: 2,
-	when: TaskExecutionSupportedContext
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarTerminalMenu, {
+// 	group: TerminalMenuBarGroup.Configure,
+// 	command: {
+// 		id: 'workbench.action.tasks.configureDefaultBuildTask',
+// 		title: nls.localize({ key: 'miConfigureBuildTask', comment: ['&& denotes a mnemonic'] }, "Configure De&&fault Build Task...")
+// 	},
+// 	order: 2,
+// 	when: TaskExecutionSupportedContext
+// });
 
 
 MenuRegistry.appendMenuItem(MenuId.CommandPalette, {

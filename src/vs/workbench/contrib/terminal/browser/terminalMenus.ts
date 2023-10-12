@@ -60,30 +60,30 @@ export function setupTerminalMenus(): void {
 					when: TerminalContextKeys.processSupported
 				}
 			},
-			{
-				id: MenuId.MenubarTerminalMenu,
-				item: {
-					group: TerminalMenuBarGroup.Run,
-					command: {
-						id: TerminalCommandId.RunActiveFile,
-						title: localize({ key: 'miRunActiveFile', comment: ['&& denotes a mnemonic'] }, "Run &&Active File")
-					},
-					order: 3,
-					when: TerminalContextKeys.processSupported
-				}
-			},
-			{
-				id: MenuId.MenubarTerminalMenu,
-				item: {
-					group: TerminalMenuBarGroup.Run,
-					command: {
-						id: TerminalCommandId.RunSelectedText,
-						title: localize({ key: 'miRunSelectedText', comment: ['&& denotes a mnemonic'] }, "Run &&Selected Text")
-					},
-					order: 4,
-					when: TerminalContextKeys.processSupported
-				}
-			}
+			// {
+			// 	id: MenuId.MenubarTerminalMenu,
+			// 	item: {
+			// 		group: TerminalMenuBarGroup.Run,
+			// 		command: {
+			// 			id: TerminalCommandId.RunActiveFile,
+			// 			title: localize({ key: 'miRunActiveFile', comment: ['&& denotes a mnemonic'] }, "Run &&Active File")
+			// 		},
+			// 		order: 3,
+			// 		when: TerminalContextKeys.processSupported
+			// 	}
+			// },
+			// {
+			// 	id: MenuId.MenubarTerminalMenu,
+			// 	item: {
+			// 		group: TerminalMenuBarGroup.Run,
+			// 		command: {
+			// 			id: TerminalCommandId.RunSelectedText,
+			// 			title: localize({ key: 'miRunSelectedText', comment: ['&& denotes a mnemonic'] }, "Run &&Selected Text")
+			// 		},
+			// 		order: 4,
+			// 		when: TerminalContextKeys.processSupported
+			// 	}
+			// }
 		]
 	);
 
