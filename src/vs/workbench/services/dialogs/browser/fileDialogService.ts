@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { IPickAndOpenOptions, ISaveDialogOptions, IOpenDialogOptions, IFileDialogService, FileFilter, IPromptButton } from 'vs/platform/dialogs/common/dialogs';
+import { IPickAndOpenOptions, ISaveDialogOptions, IOpenDialogOptions, IFileDialogService, FileFilter, IPromptButton, IOpenFileOptions } from 'vs/platform/dialogs/common/dialogs';
 import { URI } from 'vs/base/common/uri';
 import { InstantiationType, registerSingleton } from 'vs/platform/instantiation/common/extensions';
 import { AbstractFileDialogService } from 'vs/workbench/services/dialogs/browser/abstractFileDialogService';
@@ -48,6 +48,7 @@ export class FileDialogService extends AbstractFileDialogService implements IFil
 
 	async pickFileAndOpen(options: IPickAndOpenOptions): Promise<void> {
 		const schema = this.getFileSystemSchema(options);
+		console.log('this is me bro');
 
 		if (!options.defaultUri) {
 			options.defaultUri = await this.defaultFilePath(schema);
@@ -55,6 +56,39 @@ export class FileDialogService extends AbstractFileDialogService implements IFil
 
 		if (this.shouldUseSimplified(schema)) {
 			return super.pickFileAndOpenSimplified(schema, options, false);
+		}
+
+		if (!WebFileSystemAccess.supported(window)) {
+			return this.showUnsupportedBrowserWarning('open');
+		}
+
+		let fileHandle: FileSystemHandle | undefined = undefined;
+		try {
+			([fileHandle] = await window.showOpenFilePicker({ multiple: false }));
+		} catch (error) {
+			return; // `showOpenFilePicker` will throw an error when the user cancels
+		}
+
+		if (!WebFileSystemAccess.isFileSystemFileHandle(fileHandle)) {
+			return;
+		}
+
+		const uri = await this.fileSystemProvider.registerFileHandle(fileHandle);
+
+		this.addFileToRecentlyOpened(uri);
+
+		await this.openerService.open(uri, { fromUserGesture: true, editorOptions: { pinned: true } });
+	}
+
+	async openFile(options: IOpenFileOptions): Promise<void> {
+		const schema = this.getFileSystemSchema(options);
+
+		if (!options.defaultUri) {
+			options.defaultUri = await this.defaultFilePath(schema);
+		}
+
+		if (this.shouldUseSimplified(schema)) {
+			return super.openFileSimplified(schema, options, false);
 		}
 
 		if (!WebFileSystemAccess.supported(window)) {
