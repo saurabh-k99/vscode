@@ -7,18 +7,18 @@ import { MenuHiddenStatesReset } from 'vs/platform/actions/common/menuResetActio
 import { MenuService } from 'vs/platform/actions/common/menuService';
 import { InstantiationType, registerSingleton } from 'vs/platform/instantiation/common/extensions';
 import { RunClient, RunServer } from 'vs/workbench/browser/actions/customActions';
-// import { customConfig } from '../../../../../customConfig'
+
 
 registerSingleton(IMenuService, MenuService, InstantiationType.Delayed);
 
 registerAction2(MenuHiddenStatesReset);
 
 const customConfig = {
-	role: 'backend'
+	role: 'fullstack'
 }
 
 if (customConfig.role === 'frontend' || customConfig.role === 'fullstack')
 	registerAction2(RunClient)
 
-else if (customConfig.role === 'backend' || customConfig.role === 'fullstack')
+if (customConfig.role === 'backend' || customConfig.role === 'fullstack')
 	registerAction2(RunServer)
