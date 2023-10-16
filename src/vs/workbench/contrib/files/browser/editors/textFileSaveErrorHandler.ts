@@ -136,8 +136,8 @@ export class TextFileSaveErrorHandler extends Disposable implements ISaveErrorHa
 			const isWriteLocked = fileOperationError.fileOperationResult === FileOperationResult.FILE_WRITE_LOCKED;
 			const triedToUnlock = isWriteLocked && (fileOperationError.options as IWriteFileOptions | undefined)?.unlock;
 			const isPermissionDenied = fileOperationError.fileOperationResult === FileOperationResult.FILE_PERMISSION_DENIED;
-			const canSaveElevated = resource.scheme === Schemas.file; // currently only supported for local schemes (https://github.com/microsoft/vscode/issues/48659)
-
+			// const canSaveElevated = resource.scheme === Schemas.file; // currently only supported for local schemes (https://github.com/microsoft/vscode/issues/48659)
+			const canSaveElevated = false
 			// Save Elevated
 			if (canSaveElevated && (isPermissionDenied || triedToUnlock)) {
 				primaryActions.push(this.instantiationService.createInstance(SaveModelElevatedAction, model, !!triedToUnlock));
@@ -145,7 +145,7 @@ export class TextFileSaveErrorHandler extends Disposable implements ISaveErrorHa
 
 			// Unlock
 			else if (isWriteLocked) {
-				primaryActions.push(this.instantiationService.createInstance(UnlockModelAction, model));
+				// primaryActions.push(this.instantiationService.createInstance(UnlockModelAction, model));
 			}
 
 			// Retry
@@ -164,7 +164,7 @@ export class TextFileSaveErrorHandler extends Disposable implements ISaveErrorHa
 				if (triedToUnlock && canSaveElevated) {
 					message = isWindows ? localize('readonlySaveErrorAdmin', "Failed to save '{0}': File is read-only. Select 'Overwrite as Admin' to retry as administrator.", basename(resource)) : localize('readonlySaveErrorSudo', "Failed to save '{0}': File is read-only. Select 'Overwrite as Sudo' to retry as superuser.", basename(resource));
 				} else {
-					message = localize('readonlySaveError', "Failed to save '{0}': File is read-only. Select 'Overwrite' to attempt to make it writeable.", basename(resource));
+					message = localize('readonlySaveError', "Failed to save '{0}': File is read-only.", basename(resource));
 				}
 			} else if (canSaveElevated && isPermissionDenied) {
 				message = isWindows ? localize('permissionDeniedSaveError', "Failed to save '{0}': Insufficient permissions. Select 'Retry as Admin' to retry as administrator.", basename(resource)) : localize('permissionDeniedSaveErrorSudo', "Failed to save '{0}': Insufficient permissions. Select 'Retry as Sudo' to retry as superuser.", basename(resource));

@@ -83,6 +83,18 @@ export class StartupPageContribution implements IWorkbenchContribution {
 	}
 
 	private async run() {
+		//setting the configuration on startup
+		const baseURI = window.location.href.split('=')?.[1]
+
+		const config = await this.fileService.readFile(URI.from({
+			authority: window.location.hostname,
+			scheme: 'vscode-remote',
+			path: `${baseURI}/configuration.json`
+		}))
+
+		const files = JSON.parse(config.value.toString())?.preopen
+
+		sessionStorage.setItem('configuration', config.value.toString())
 
 		// Always open Welcome page for first-launch, no matter what is open or which startupEditor is set.
 		if (
@@ -128,6 +140,17 @@ export class StartupPageContribution implements IWorkbenchContribution {
 					await this.openGettingStarted();
 				}
 			}
+		}
+
+		//checking for files to open on startup
+		if (files && files.length) {
+			this.editorService.openEditors(files.map((file: string) => ({
+				resource: URI.from({
+					scheme: 'vscode-remote',
+					authority: window.location.hostname,
+					path: `${baseURI}/${file}`
+				})
+			})))
 		}
 	}
 

@@ -1,13 +1,9 @@
-import { URI } from 'vs/base/common/uri';
 import { ServicesAccessor } from 'vs/editor/browser/editorExtensions';
 import { localize } from 'vs/nls';
 import { Categories } from 'vs/platform/action/common/actionCommonCategories';
 import { Action2, MenuId } from 'vs/platform/actions/common/actions';
-import { ICommandService } from 'vs/platform/commands/common/commands';
 import { IDialogService } from 'vs/platform/dialogs/common/dialogs';
-import { IFileService } from 'vs/platform/files/common/files';
 import { ITerminalService } from 'vs/workbench/contrib/terminal/browser/terminal';
-import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
 import { IWorkbenchLayoutService, Parts } from 'vs/workbench/services/layout/browser/layoutService';
 
 export class RunClient extends Action2 {
@@ -25,27 +21,21 @@ export class RunClient extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor) {
-		const fileService = accessor.get(IFileService)
 		const terminalService = accessor.get(ITerminalService)
 		const dialogService = accessor.get(IDialogService)
 		const layoutService = accessor.get(IWorkbenchLayoutService);
+		const baseURI = window.location.href.split('=')?.[1]
 		let configuration, command, instance
 
-		if (!sessionStorage.getItem('configuration')) {
-			const c = await fileService.readFile(URI.from({
-				authority: window.location.hostname,
-				scheme: 'vscode-remote',
-				path: `${window.location.href.split('=')[1]}/test.json`
-			}))
-
-			sessionStorage.setItem('configuration', c.value.toString())
+		if (!baseURI) {
+			dialogService.error('No Folder Selected!!!')
+			return
 		}
 
 		configuration = sessionStorage.getItem('configuration')
 
 		if (configuration) {
-			configuration = JSON.parse(configuration)
-			command = configuration.frontend
+			command = JSON.parse(configuration).frontend
 		}
 
 		if (!command) {
@@ -83,30 +73,21 @@ export class RunServer extends Action2 {
 	}
 
 	override async run(accessor: ServicesAccessor) {
-		const fileService = accessor.get(IFileService)
 		const terminalService = accessor.get(ITerminalService)
 		const layoutService = accessor.get(IWorkbenchLayoutService);
 		const dialogService = accessor.get(IDialogService)
+		const baseURI = window.location.href.split('=')?.[1]
 		let configuration, command, instance
 
-		if (!sessionStorage.getItem('configuration')) {
-			const c = await fileService.readFile(URI.from({
-				authority: window.location.hostname,
-				scheme: 'vscode-remote',
-				path: `${window.location.href.split('=')[1]}/test.json`
-			}))
-
-			sessionStorage.setItem('configuration', c.value.toString())
+		if (!baseURI) {
+			dialogService.error('No Folder Selected!!!')
+			return
 		}
 
 		configuration = sessionStorage.getItem('configuration')
 
 		if (configuration) {
-			configuration = JSON.parse(configuration)
-			console.log(configuration);
-
-
-			command = configuration.backend
+			command = JSON.parse(configuration).backend
 		}
 
 		if (!command) {
