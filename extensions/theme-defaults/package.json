@@ -25,13 +25,6 @@
         "uiTheme": "vs",
         "path": "./themes/light_vs.json"
       }
-    ],
-    "iconThemes": [
-      {
-        "id": "vs-minimal",
-        "label": "%minimalIconThemeLabel%",
-        "path": "./fileicons/vs_minimal-icon-theme.json"
-      }
     ]
   },
   "repository": {
