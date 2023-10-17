@@ -83,7 +83,9 @@ export class StartupPageContribution implements IWorkbenchContribution {
 	}
 
 	private async run() {
-		//setting the configuration on startup
+		/*
+		 * setting the configuration on startup
+		*/
 		const baseURI = window.location.href.split('=')?.[1]
 
 		const config = await this.fileService.readFile(URI.from({
@@ -93,8 +95,22 @@ export class StartupPageContribution implements IWorkbenchContribution {
 		}))
 
 		const files = JSON.parse(config.value.toString())?.preopen
-
 		sessionStorage.setItem('configuration', config.value.toString())
+
+		//checking for files to open on startup
+		if (files && files.length) {
+			this.editorService.openEditors(files.map((file: string) => ({
+				resource: URI.from({
+					scheme: 'vscode-remote',
+					authority: window.location.hostname,
+					path: `${baseURI}/${file}`
+				})
+			})))
+		}
+
+		/*
+		 * setting the configuration on startup ends here
+		*/
 
 		// Always open Welcome page for first-launch, no matter what is open or which startupEditor is set.
 		if (
@@ -141,17 +157,6 @@ export class StartupPageContribution implements IWorkbenchContribution {
 				}
 			}
 		}
-
-		//checking for files to open on startup
-		if (files && files.length) {
-			this.editorService.openEditors(files.map((file: string) => ({
-				resource: URI.from({
-					scheme: 'vscode-remote',
-					authority: window.location.hostname,
-					path: `${baseURI}/${file}`
-				})
-			})))
-		}
 	}
 
 	private tryOpenWalkthroughForFolder(): boolean {
@@ -186,20 +191,20 @@ export class StartupPageContribution implements IWorkbenchContribution {
 					else { return undefined; }
 				})));
 
-		if (!this.editorService.activeEditor) {
-			if (readmes.length) {
-				const isMarkDown = (readme: URI) => readme.path.toLowerCase().endsWith('.md');
-				await Promise.all([
-					this.commandService.executeCommand('markdown.showPreview', null, readmes.filter(isMarkDown), { locked: true }).catch(error => {
-						this.notificationService.error(localize('startupPage.markdownPreviewError', 'Could not open markdown preview: {0}.\n\nPlease make sure the markdown extension is enabled.', error.message));
-					}),
-					this.editorService.openEditors(readmes.filter(readme => !isMarkDown(readme)).map(readme => ({ resource: readme }))),
-				]);
-			} else {
-				// If no readme is found, default to showing the welcome page.
-				await this.openGettingStarted();
-			}
+		// if (!this.editorService.activeEditor) {
+		if (readmes.length) {
+			const isMarkDown = (readme: URI) => readme.path.toLowerCase().endsWith('.md');
+			await Promise.all([
+				this.commandService.executeCommand('markdown.showPreview', null, readmes.filter(isMarkDown), { locked: true }).catch(error => {
+					this.notificationService.error(localize('startupPage.markdownPreviewError', 'Could not open markdown preview: {0}.\n\nPlease make sure the markdown extension is enabled.', error.message));
+				}),
+				this.editorService.openEditors(readmes.filter(readme => !isMarkDown(readme)).map(readme => ({ resource: readme }))),
+			]);
+		} else {
+			// If no readme is found, default to showing the welcome page.
+			await this.openGettingStarted();
 		}
+		// }
 	}
 
 	private async openGettingStarted(showTelemetryNotice?: boolean) {

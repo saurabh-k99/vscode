@@ -190,15 +190,6 @@ export interface IPickAndOpenOptions {
 	remoteAuthority?: string | null;
 }
 
-export interface IOpenFileOptions {
-	readonly forceNewWindow?: boolean;
-	defaultUri?: URI;
-	readonly telemetryExtraData?: ITelemetryData;
-	availableFileSystems?: string[];
-	remoteAuthority?: string | null;
-	uriString: string
-}
-
 export interface FileFilter {
 	readonly extensions: string[];
 	readonly name: string;
@@ -554,11 +545,6 @@ export interface IFileDialogService {
 	 * Shows a file selection dialog and opens the selected entry.
 	 */
 	pickFileAndOpen(options: IPickAndOpenOptions): Promise<void>;
-
-	/**
-	 * Custom function to open specified file.
-	 */
-	openFile(options: IOpenFileOptions): Promise<void>;
 
 	/**
 	 * Shows a folder selection dialog and opens the selected entry.
