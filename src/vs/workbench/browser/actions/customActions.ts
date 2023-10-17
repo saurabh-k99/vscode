@@ -11,7 +11,7 @@ export class RunClient extends Action2 {
 		super({
 			id: 'workbench.action.run.client',
 			title: { value: localize({ key: 'cRunClient', comment: ['Starts frontend in specified port'] }, "Run Client"), original: 'Run Client' },
-			category: Categories.Start,
+			category: Categories.CustomRun,
 			f1: false,
 			menu: {
 				id: MenuId.DoSelectCustomMenu,
@@ -63,7 +63,7 @@ export class RunServer extends Action2 {
 		super({
 			id: 'workbench.action.run.server',
 			title: { value: localize({ key: 'cRunServer', comment: ['Starts backend in specified port'] }, "Run Server"), original: 'Run Server' },
-			category: Categories.Start,
+			category: Categories.CustomRun,
 			f1: false,
 			menu: {
 				id: MenuId.DoSelectCustomMenu,

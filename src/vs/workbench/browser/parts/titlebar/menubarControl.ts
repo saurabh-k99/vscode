@@ -117,11 +117,11 @@ MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
 MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
 	submenu: MenuId.DoSelectCustomMenu,
 	title: {
-		value: 'Start',
-		original: 'Start',
-		mnemonicTitle: localize({ key: 'mStart', comment: ['Custom Menu for DoSelect'] }, 'Start')
+		value: 'Run',
+		original: 'Run',
+		mnemonicTitle: localize({ key: 'mRun', comment: ['Custom Menu for DoSelect'] }, 'Run')
 	},
-	order: 1
+	order: 10
 })
 
 MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {

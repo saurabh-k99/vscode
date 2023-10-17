@@ -10,7 +10,7 @@ export const Categories = Object.freeze({
 	Help: { value: localize('help', "Help"), original: 'Help' },
 	Test: { value: localize('test', "Test"), original: 'Test' },
 	File: { value: localize('file', "File"), original: 'File' },
-	Start: { value: localize('start', "Start"), original: 'Start' },
+	CustomRun: { value: localize('run', "Run"), original: 'Run' },
 	Preferences: { value: localize('preferences', "Preferences"), original: 'Preferences' },
 	Developer: { value: localize({ key: 'developer', comment: ['A developer on Code itself or someone diagnosing issues in Code'] }, "Developer"), original: 'Developer' }
 });
