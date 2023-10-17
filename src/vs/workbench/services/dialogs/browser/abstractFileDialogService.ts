@@ -5,7 +5,7 @@
 
 import * as nls from 'vs/nls';
 import { IWindowOpenable, isWorkspaceToOpen, isFileToOpen } from 'vs/platform/window/common/window';
-import { IPickAndOpenOptions, ISaveDialogOptions, IOpenDialogOptions, FileFilter, IFileDialogService, IDialogService, ConfirmResult, getFileNamesMessage, IOpenFileOptions } from 'vs/platform/dialogs/common/dialogs';
+import { IPickAndOpenOptions, ISaveDialogOptions, IOpenDialogOptions, FileFilter, IFileDialogService, IDialogService, ConfirmResult, getFileNamesMessage } from 'vs/platform/dialogs/common/dialogs';
 import { isSavedWorkspace, isTemporaryWorkspace, IWorkspaceContextService, WorkbenchState, WORKSPACE_EXTENSION } from 'vs/platform/workspace/common/workspace';
 import { IHistoryService } from 'vs/workbench/services/history/common/history';
 import { IWorkbenchEnvironmentService } from 'vs/workbench/services/environment/common/environmentService';
@@ -230,25 +230,6 @@ export abstract class AbstractFileDialogService implements IFileDialogService {
 		}
 	}
 
-	protected async openFileSimplified(schema: string, options: IOpenFileOptions, preferNewWindow: boolean): Promise<void> {
-		// const uri = await this.pickResource({ canSelectFiles: true, canSelectFolders: false, canSelectMany: false, defaultUri: options.defaultUri, title, availableFileSystems });
-		// const uri = new URI(schema, authority, options.uriString, "", "");
-		const uri = URI.from({
-			scheme: schema,
-			path: options.uriString,
-			authority: window.location.hostname
-		})
-
-		console.log('this is my uri: ', uri)
-
-		if (options.forceNewWindow || preferNewWindow) {
-			await this.hostService.openWindow([{ fileUri: uri }], { forceNewWindow: options.forceNewWindow, remoteAuthority: options.remoteAuthority });
-		} else {
-			await this.editorService.openEditors([{ resource: uri, options: { source: EditorOpenSource.USER, pinned: true } }], undefined, { validateTrust: false });
-		}
-
-	}
-
 	protected addFileToRecentlyOpened(uri: URI): void {
 		this.workspacesService.addRecentlyOpened([{ fileUri: uri, label: this.labelService.getUriLabel(uri) }]);
 	}
@@ -329,7 +310,6 @@ export abstract class AbstractFileDialogService implements IFileDialogService {
 
 	abstract pickFileFolderAndOpen(options: IPickAndOpenOptions): Promise<void>;
 	abstract pickFileAndOpen(options: IPickAndOpenOptions): Promise<void>;
-	abstract openFile(options: IOpenFileOptions): Promise<void>;
 	abstract pickFolderAndOpen(options: IPickAndOpenOptions): Promise<void>;
 	abstract pickWorkspaceAndOpen(options: IPickAndOpenOptions): Promise<void>;
 	protected getWorkspaceAvailableFileSystems(options: IPickAndOpenOptions): string[] {

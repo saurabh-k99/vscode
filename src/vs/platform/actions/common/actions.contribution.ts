@@ -13,22 +13,8 @@ registerSingleton(IMenuService, MenuService, InstantiationType.Delayed);
 
 registerAction2(MenuHiddenStatesReset);
 
-let customConfig, role
-
-customConfig = sessionStorage.getItem('configuration')
-console.log('customConfig: ', customConfig);
-
-if (customConfig) {
-	customConfig = JSON.parse(customConfig)
-
-	role = customConfig.role
-
-	if (role === 'frontend' || role === 'fullstack')
-		registerAction2(RunClient)
-
-	if (role === 'backend' || role === 'fullstack')
-		registerAction2(RunServer)
-}
+registerAction2(RunClient)
+registerAction2(RunServer)
 
 
 
