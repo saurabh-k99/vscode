@@ -97,17 +97,6 @@ export class StartupPageContribution implements IWorkbenchContribution {
 		const files = JSON.parse(config.value.toString())?.preopen
 		sessionStorage.setItem('configuration', config.value.toString())
 
-		//checking for files to open on startup
-		if (files && files.length) {
-			this.editorService.openEditors(files.map((file: string) => ({
-				resource: URI.from({
-					scheme: 'vscode-remote',
-					authority: window.location.hostname,
-					path: `${baseURI}/${file}`
-				})
-			})))
-		}
-
 		/*
 		 * setting the configuration on startup ends here
 		*/
@@ -151,7 +140,7 @@ export class StartupPageContribution implements IWorkbenchContribution {
 
 				const openWithReadme = isStartupEditorReadme && (isStartupEditorUserReadme || isStartupEditorDefaultReadme);
 				if (openWithReadme) {
-					await this.openReadme();
+					await this.openReadme(files);
 				} else if (startupEditorSetting.value === 'welcomePage' || startupEditorSetting.value === 'welcomePageInEmptyWorkbench') {
 					await this.openGettingStarted();
 				}
@@ -179,7 +168,7 @@ export class StartupPageContribution implements IWorkbenchContribution {
 		return false;
 	}
 
-	private async openReadme() {
+	private async openReadme(files: string[]) {
 		const readmes = arrays.coalesce(
 			await Promise.all(this.contextService.getWorkspace().folders.map(
 				async folder => {
@@ -199,6 +188,13 @@ export class StartupPageContribution implements IWorkbenchContribution {
 					this.notificationService.error(localize('startupPage.markdownPreviewError', 'Could not open markdown preview: {0}.\n\nPlease make sure the markdown extension is enabled.', error.message));
 				}),
 				this.editorService.openEditors(readmes.filter(readme => !isMarkDown(readme)).map(readme => ({ resource: readme }))),
+				this.editorService.openEditors(files.map((file: string) => ({
+					resource: URI.from({
+						scheme: 'vscode-remote',
+						authority: window.location.hostname,
+						path: `${window.location.href.split('=')?.[1]}/${file}`
+					})
+				})))
 			]);
 		} else {
 			// If no readme is found, default to showing the welcome page.
