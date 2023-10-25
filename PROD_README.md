@@ -43,3 +43,8 @@ yarn
 ```bash
 node out/server-main.js
 ```
+
+* for dockerized setup copy Dockerfile to the folder created above and add this in scripts section of package.json
+```json
+"start-container": "node out/server-main.js --without-connection-token --host 0.0.0.0"
+```
