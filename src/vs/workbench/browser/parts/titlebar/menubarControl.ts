@@ -44,15 +44,15 @@ import { defaultMenuStyles } from 'vs/platform/theme/browser/defaultStyles';
 
 export type IOpenRecentAction = IAction & { uri: URI; remoteAuthority?: string };
 
-MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
-	submenu: MenuId.MenubarFileMenu,
-	title: {
-		value: 'File',
-		original: 'File',
-		mnemonicTitle: localize({ key: 'mFile', comment: ['&& denotes a mnemonic'] }, "&&File"),
-	},
-	order: 1
-});
+// MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
+// 	submenu: MenuId.MenubarFileMenu,
+// 	title: {
+// 		value: 'File',
+// 		original: 'File',
+// 		mnemonicTitle: localize({ key: 'mFile', comment: ['&& denotes a mnemonic'] }, "&&File"),
+// 	},
+// 	order: 1
+// });
 
 MenuRegistry.appendMenuItem(MenuId.MenubarMainMenu, {
 	submenu: MenuId.MenubarEditMenu,
