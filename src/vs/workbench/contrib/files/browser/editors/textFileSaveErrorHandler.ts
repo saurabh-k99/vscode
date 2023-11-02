@@ -27,7 +27,6 @@ import { IProductService } from 'vs/platform/product/common/productService';
 import { Event } from 'vs/base/common/event';
 import { IEditorService } from 'vs/workbench/services/editor/common/editorService';
 import { isWindows } from 'vs/base/common/platform';
-import { Schemas } from 'vs/base/common/network';
 import { IPreferencesService } from 'vs/workbench/services/preferences/common/preferences';
 import { IEditorIdentifier, SaveReason, SideBySideEditor } from 'vs/workbench/common/editor';
 import { hash } from 'vs/base/common/hash';
@@ -355,20 +354,20 @@ class SaveModelAsAction extends Action {
 	}
 }
 
-class UnlockModelAction extends Action {
+// class UnlockModelAction extends Action {
 
-	constructor(
-		private model: ITextFileEditorModel
-	) {
-		super('workbench.files.action.unlock', localize('overwrite', "Overwrite"));
-	}
+// 	constructor(
+// 		private model: ITextFileEditorModel
+// 	) {
+// 		super('workbench.files.action.unlock', localize('overwrite', "Overwrite"));
+// 	}
 
-	override async run(): Promise<void> {
-		if (!this.model.isDisposed()) {
-			await this.model.save({ writeUnlock: true, reason: SaveReason.EXPLICIT });
-		}
-	}
-}
+// 	override async run(): Promise<void> {
+// 		if (!this.model.isDisposed()) {
+// 			await this.model.save({ writeUnlock: true, reason: SaveReason.EXPLICIT });
+// 		}
+// 	}
+// }
 
 class SaveModelIgnoreModifiedSinceAction extends Action {
 

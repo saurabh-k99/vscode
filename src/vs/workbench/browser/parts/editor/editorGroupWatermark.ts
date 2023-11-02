@@ -4,25 +4,25 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { Disposable, DisposableStore } from 'vs/base/common/lifecycle';
-import { isMacintosh, isWeb, OS } from 'vs/base/common/platform';
-import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
+// import { isMacintosh, isWeb, OS } from 'vs/base/common/platform';
+// import { IKeybindingService } from 'vs/platform/keybinding/common/keybinding';
 import { ITelemetryService } from 'vs/platform/telemetry/common/telemetry';
-import * as nls from 'vs/nls';
+// import * as nls from 'vs/nls';
 import { IWorkspaceContextService, WorkbenchState } from 'vs/platform/workspace/common/workspace';
 import { ILifecycleService } from 'vs/workbench/services/lifecycle/common/lifecycle';
 import { IConfigurationService } from 'vs/platform/configuration/common/configuration';
-import { append, clearNode, $, h } from 'vs/base/browser/dom';
-import { KeybindingLabel } from 'vs/base/browser/ui/keybindingLabel/keybindingLabel';
-import { CommandsRegistry } from 'vs/platform/commands/common/commands';
-import { ContextKeyExpr, ContextKeyExpression, IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
-import { defaultKeybindingLabelStyles } from 'vs/platform/theme/browser/defaultStyles';
+import { append, clearNode, h } from 'vs/base/browser/dom';
+// import { KeybindingLabel } from 'vs/base/browser/ui/keybindingLabel/keybindingLabel';
+// import { CommandsRegistry } from 'vs/platform/commands/common/commands';
+// import { ContextKeyExpr, ContextKeyExpression, IContextKeyService } from 'vs/platform/contextkey/common/contextkey';
+// import { defaultKeybindingLabelStyles } from 'vs/platform/theme/browser/defaultStyles';
 
-interface WatermarkEntry {
-	text: string;
-	id: string;
-	mac?: boolean;
-	when?: ContextKeyExpression;
-}
+// interface WatermarkEntry {
+// 	text: string;
+// 	id: string;
+// 	mac?: boolean;
+// 	when?: ContextKeyExpression;
+// }
 
 // const showCommands: WatermarkEntry = { text: nls.localize('watermark.showCommands', "Show All Commands"), id: 'workbench.action.showCommands' };
 // const quickAccess: WatermarkEntry = { text: nls.localize('watermark.quickAccess', "Go to File"), id: 'workbench.action.quickOpen' };
@@ -57,9 +57,6 @@ interface WatermarkEntry {
 // 	showSettings
 // ];
 
-const noFolderEntries = []
-const folderEntries = []
-
 export class EditorGroupWatermark extends Disposable {
 
 	private readonly shortcuts: HTMLElement;
@@ -70,9 +67,9 @@ export class EditorGroupWatermark extends Disposable {
 	constructor(
 		container: HTMLElement,
 		@ILifecycleService private readonly lifecycleService: ILifecycleService,
-		@IKeybindingService private readonly keybindingService: IKeybindingService,
+		// @IKeybindingService private readonly keybindingService: IKeybindingService,
 		@IWorkspaceContextService private readonly contextService: IWorkspaceContextService,
-		@IContextKeyService private readonly contextKeyService: IContextKeyService,
+		// @IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@IConfigurationService private readonly configurationService: IConfigurationService,
 		@ITelemetryService private readonly telemetryService: ITelemetryService
 	) {
@@ -110,14 +107,14 @@ export class EditorGroupWatermark extends Disposable {
 			this.render();
 		}));
 
-		const allEntriesWhenClauses = [...noFolderEntries, ...folderEntries].filter(entry => entry.when !== undefined).map(entry => entry.when!);
-		const allKeys = new Set<string>();
-		allEntriesWhenClauses.forEach(when => when.keys().forEach(key => allKeys.add(key)));
-		this._register(this.contextKeyService.onDidChangeContext(e => {
-			if (e.affectsSome(allKeys)) {
-				this.render();
-			}
-		}));
+		// const allEntriesWhenClauses = [...noFolderEntries, ...folderEntries].filter(entry => entry.when !== undefined).map(entry => entry.when!);
+		// const allKeys = new Set<string>();
+		// allEntriesWhenClauses.forEach(when => when.keys().forEach(key => allKeys.add(key)));
+		// this._register(this.contextKeyService.onDidChangeContext(e => {
+		// 	if (e.affectsSome(allKeys)) {
+		// 		this.render();
+		// 	}
+		// }));
 	}
 
 	private render(): void {
@@ -134,31 +131,31 @@ export class EditorGroupWatermark extends Disposable {
 			return;
 		}
 
-		const box = append(this.shortcuts, $('.watermark-box'));
-		const folder = this.workbenchState !== WorkbenchState.EMPTY;
-		const selected = (folder ? folderEntries : noFolderEntries)
-			.filter(entry => !('when' in entry) || this.contextKeyService.contextMatchesRules(entry.when))
-			.filter(entry => !('mac' in entry) || entry.mac === (isMacintosh && !isWeb))
-			.filter(entry => !!CommandsRegistry.getCommand(entry.id));
+		// const box = append(this.shortcuts, $('.watermark-box'));
+		// const folder = this.workbenchState !== WorkbenchState.EMPTY;
+		// const selected = (folder ? folderEntries : noFolderEntries)
+		// 	.filter(entry => !('when' in entry) || this.contextKeyService.contextMatchesRules(entry.when))
+		// 	.filter(entry => !('mac' in entry) || entry.mac === (isMacintosh && !isWeb))
+		// 	.filter(entry => !!CommandsRegistry.getCommand(entry.id));
 
-		const update = () => {
-			clearNode(box);
-			selected.map(entry => {
-				const keys = this.keybindingService.lookupKeybinding(entry.id);
-				if (!keys) {
-					return;
-				}
-				const dl = append(box, $('dl'));
-				const dt = append(dl, $('dt'));
-				dt.textContent = entry.text;
-				const dd = append(dl, $('dd'));
-				const keybinding = new KeybindingLabel(dd, OS, { renderUnboundKeybindings: true, ...defaultKeybindingLabelStyles });
-				keybinding.set(keys);
-			});
-		};
+		// const update = () => {
+		// 	clearNode(box);
+		// 	selected.map(entry => {
+		// 		const keys = this.keybindingService.lookupKeybinding(entry.id);
+		// 		if (!keys) {
+		// 			return;
+		// 		}
+		// 		const dl = append(box, $('dl'));
+		// 		const dt = append(dl, $('dt'));
+		// 		dt.textContent = entry.text;
+		// 		const dd = append(dl, $('dd'));
+		// 		const keybinding = new KeybindingLabel(dd, OS, { renderUnboundKeybindings: true, ...defaultKeybindingLabelStyles });
+		// 		keybinding.set(keys);
+		// 	});
+		// };
 
-		update();
-		this.transientDisposables.add(this.keybindingService.onDidUpdateKeybindings(update));
+		// update();
+		// this.transientDisposables.add(this.keybindingService.onDidUpdateKeybindings(update));
 
 		/* __GDPR__
 		"watermark:open" : {

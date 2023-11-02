@@ -20,10 +20,10 @@
         "path": "./themes/dark_vs.json"
       },
       {
-        "id": "Visual Studio Light",
-        "label": "%lightColorThemeLabel%",
+        "id": "Default Light Modern",
+        "label": "%lightModernThemeLabel%",
         "uiTheme": "vs",
-        "path": "./themes/light_vs.json"
+        "path": "./themes/light_modern.json"
       }
     ]
   },
