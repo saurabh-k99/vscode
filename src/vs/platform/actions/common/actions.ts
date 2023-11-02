@@ -191,6 +191,9 @@ export class MenuId {
 	static readonly ChatInputSide = new MenuId('ChatInputSide');
 	static readonly AccessibleView = new MenuId('AccessibleView');
 
+	// custom menuId
+	static readonly DoSelectCustomMenu = new MenuId('DoSelectCustomMenu')
+
 	/**
 	 * Create or reuse a `MenuId` with the given identifier
 	 */

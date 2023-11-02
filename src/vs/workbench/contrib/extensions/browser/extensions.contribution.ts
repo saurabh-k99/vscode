@@ -119,7 +119,7 @@ Registry.as<IViewContainersRegistry>(ViewContainerExtensions.ViewContainersRegis
 		order: 4,
 		rejectAddedViews: true,
 		alwaysUseContainerInfo: true,
-	}, ViewContainerLocation.Sidebar);
+	}, ViewContainerLocation.None);
 
 
 Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration)
@@ -523,14 +523,14 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 			group: '2_configuration',
 			order: 3
 		}));
-		this._register(MenuRegistry.appendMenuItem(MenuId.GlobalActivity, {
-			command: {
-				id: VIEWLET_ID,
-				title: localize('showExtensions', "Extensions")
-			},
-			group: '2_configuration',
-			order: 3
-		}));
+		// this._register(MenuRegistry.appendMenuItem(MenuId.GlobalActivity, {
+		// 	command: {
+		// 		id: VIEWLET_ID,
+		// 		title: localize('showExtensions', "Extensions")
+		// 	},
+		// 	group: '2_configuration',
+		// 	order: 3
+		// }));
 
 		this.registerExtensionAction({
 			id: 'workbench.extensions.action.focusExtensionsView',

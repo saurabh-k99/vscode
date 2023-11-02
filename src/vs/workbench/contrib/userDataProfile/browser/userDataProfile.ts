@@ -90,14 +90,14 @@ export class UserDataProfilesWorkbenchContribution extends Disposable implements
 		const getProfilesTitle = () => {
 			return localize('profiles', "Profiles ({0})", this.userDataProfileService.currentProfile.name);
 		};
-		MenuRegistry.appendMenuItem(MenuId.GlobalActivity, <ISubmenuItem>{
-			get title() {
-				return getProfilesTitle();
-			},
-			submenu: ProfilesMenu,
-			group: '2_configuration',
-			order: 1,
-		});
+		// MenuRegistry.appendMenuItem(MenuId.GlobalActivity, <ISubmenuItem>{
+		// 	get title() {
+		// 		return getProfilesTitle();
+		// 	},
+		// 	submenu: ProfilesMenu,
+		// 	group: '2_configuration',
+		// 	order: 1,
+		// });
 		MenuRegistry.appendMenuItem(MenuId.MenubarPreferencesMenu, <ISubmenuItem>{
 			get title() {
 				return getProfilesTitle();

@@ -65,6 +65,8 @@
     "perf": "node scripts/code-perf.js"
   },
   "dependencies": {
+    "@bazel/bazelisk": "1.7.5",
+    "@bazel/concatjs": "5.3.0",
     "@microsoft/1ds-core-js": "^3.2.13",
     "@microsoft/1ds-post-js": "^3.2.13",
     "@parcel/watcher": "2.1.0",

@@ -201,15 +201,17 @@ class PreferencesActionsContribution extends Disposable implements IWorkbenchCon
 						when: null,
 						primary: KeyMod.CtrlCmd | KeyCode.Comma,
 					},
-					menu: [{
-						id: MenuId.GlobalActivity,
-						group: '2_configuration',
-						order: 2
-					}, {
-						id: MenuId.MenubarPreferencesMenu,
-						group: '2_configuration',
-						order: 2
-					}],
+					menu: [
+						// 	{
+						// 	id: MenuId.GlobalActivity,
+						// 	group: '2_configuration',
+						// 	order: 2
+						// },
+						{
+							id: MenuId.MenubarPreferencesMenu,
+							group: '2_configuration',
+							order: 2
+						}],
 				});
 			}
 			run(accessor: ServicesAccessor, args: string | IOpenSettingsActionOptions) {
